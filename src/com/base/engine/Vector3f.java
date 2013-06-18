@@ -19,7 +19,13 @@ public class Vector3f
 	}
 	public Vector3f Normalize()
 	{
-		return new Vector3f(x/Length(), y/Length(), z/Length());
+		float length = Length();
+		
+		x /= length;
+		y /= length;
+		z /= length;
+		
+		return this;
 	}
 	public Vector2f Rotate(float angle)
 	{

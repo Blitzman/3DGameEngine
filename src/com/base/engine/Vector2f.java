@@ -17,7 +17,12 @@ public class Vector2f
 	}
 	public Vector2f Normalize()
 	{
-		return new Vector2f(x/Length(), y/Length());
+		float length = Length();
+		
+		x /= length;
+		y /= length;
+		
+		return this;
 	}
 	public Vector2f Rotate(float angle)
 	{
