@@ -12,6 +12,7 @@ public class MainComponent
 	
 	public MainComponent()
 	{
+		RenderUtil.InitGraphics();
 		isRunning = false;
 		game = new Game();
 	}
@@ -98,6 +99,7 @@ public class MainComponent
 	
 	private void Render()
 	{
+		RenderUtil.ClearScreen();
 		game.Render();
 		Window.Render();
 	}
