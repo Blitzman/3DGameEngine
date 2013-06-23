@@ -24,4 +24,9 @@ public class RenderUtil
 		
 		glEnable(GL_FRAMEBUFFER_SRGB);
 	}
+	
+	public static String GetOpenGLVersion()
+	{
+		return glGetString(GL_VERSION);
+	}
 }
