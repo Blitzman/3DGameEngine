@@ -5,15 +5,22 @@ import org.lwjgl.input.Keyboard;
 public class Game
 {
 	private Mesh mesh;
+	private Shader shader;
 	
 	public Game()
 	{
 		mesh = new Mesh();
+		shader = new Shader();
+		
 		Vertex[] data = new Vertex[] { 	new Vertex(new Vector3f(-1, -1, 0)),
 										new Vertex(new Vector3f(0, 1, 0)), 
 										new Vertex(new Vector3f(1, -1, 0)) };
 		
 		mesh.AddVertices(data);
+		
+		shader.AddVertexShader(ResourceLoader.LoadShader("basicVertex.vs"));
+		shader.AddFragmentShader(ResourceLoader.LoadShader("basicFragment.fs"));
+		shader.CompileShader();
 	}
 	
 	public void Input()
@@ -36,6 +43,7 @@ public class Game
 	
 	public void Render()
 	{
+		shader.Bind();
 		mesh.Draw();
 	}
 }
