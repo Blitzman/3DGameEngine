@@ -21,4 +21,17 @@ public class Util
 		
 		return buffer;
 	}
+	
+	public static FloatBuffer CreateFlippedBuffer(Matrix4f matrix)
+	{
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(4*4);
+		
+		for (int i = 0; i < 4; i++)
+			for (int j = 0; j < 4; j++)
+				buffer.put(matrix.GetElement(i, j));
+				
+		buffer.flip();
+		
+		return buffer;
+	}
 }

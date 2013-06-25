@@ -4,17 +4,35 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 
+/**
+ * 
+ * @author Albert
+ *
+ */
 public class Mesh
 {
+	/**
+	 * 
+	 */
 	private int vbo;
+	/**
+	 * 
+	 */
 	private int size;
 	
+	/**
+	 * 
+	 */
 	public Mesh()
 	{
 		vbo = glGenBuffers();
 		size = 0;
 	}
 	
+	/**
+	 * 
+	 * @param vertices
+	 */
 	public void AddVertices(Vertex[] vertices)
 	{
 		size = vertices.length;
@@ -23,6 +41,9 @@ public class Mesh
 		glBufferData(GL_ARRAY_BUFFER, Util.CreateFlippedBuffer(vertices), GL_STATIC_DRAW);
 	}
 	
+	/**
+	 * 
+	 */
 	public void Draw()
 	{
 		glEnableVertexAttribArray(0);

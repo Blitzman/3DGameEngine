@@ -7,6 +7,8 @@ public class Game
 	private Mesh mesh;
 	private Shader shader;
 	
+	float temp = 0.0f;
+	
 	public Game()
 	{
 		mesh = new Mesh();
@@ -20,7 +22,9 @@ public class Game
 		
 		shader.AddVertexShader(ResourceLoader.LoadShader("basicVertex.vs"));
 		shader.AddFragmentShader(ResourceLoader.LoadShader("basicFragment.fs"));
-		shader.CompileShader();
+		shader.Compile();
+		
+		shader.AddUniform("uniformFloat");
 	}
 	
 	public void Input()
@@ -38,7 +42,8 @@ public class Game
 	
 	public void Update()
 	{
-		
+		temp += Time.GetDelta();
+		shader.SetUniformf("uniformFloat", (float)Math.abs(Math.sin(temp)));
 	}
 	
 	public void Render()
