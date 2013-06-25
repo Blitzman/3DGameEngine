@@ -5,6 +5,11 @@ public class Vector2f
 	private float x;
 	private float y;
 	
+	public Vector2f()
+	{
+		x = 0.0f;
+		y = 0.0f;
+	}
 	public Vector2f(float x, float y)
 	{
 		this.x = x;

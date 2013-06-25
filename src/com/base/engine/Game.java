@@ -6,8 +6,7 @@ public class Game
 {
 	private Mesh mesh;
 	private Shader shader;
-	
-	float temp = 0.0f;
+	private Transformation transform;
 	
 	public Game()
 	{
@@ -20,11 +19,13 @@ public class Game
 		
 		mesh.AddVertices(data);
 		
+		transform = new Transformation();
+		
 		shader.AddVertexShader(ResourceLoader.LoadShader("basicVertex.vs"));
 		shader.AddFragmentShader(ResourceLoader.LoadShader("basicFragment.fs"));
 		shader.Compile();
 		
-		shader.AddUniform("uniformFloat");
+		shader.AddUniform("transform");
 	}
 	
 	public void Input()
@@ -40,15 +41,18 @@ public class Game
 			System.out.println("Click released at " + Input.GetMousePosition().toString());
 	}
 	
+	float temp = 0.0f;
+	
 	public void Update()
 	{
 		temp += Time.GetDelta();
-		shader.SetUniformf("uniformFloat", (float)Math.abs(Math.sin(temp)));
+		transform.SetTranslation((float)Math.sin(temp), 0.0f, 0.0f);
 	}
 	
 	public void Render()
 	{
 		shader.Bind();
+		shader.SetUniform("transform", transform.GetTransformation());
 		mesh.Draw();
 	}
 }
