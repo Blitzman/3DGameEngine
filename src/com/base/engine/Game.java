@@ -47,8 +47,9 @@ public class Game
 	{
 		temp += Time.GetDelta();
 		
-		transform.SetTranslation((float)Math.sin(temp), 0.0f, 0.0f);
-		transform.SetRotation(0, 0, (float)Math.sin(temp) * 180.0f);
+		//transform.SetTranslation((float)Math.sin(temp), 0.0f, 0.0f);
+		//transform.SetRotation(0, 0, (float)Math.sin(temp) * 180.0f);
+		transform.SetScale((float)Math.sin(temp), (float)Math.sin(temp), (float)Math.sin(temp));
 	}
 	
 	public void Render()

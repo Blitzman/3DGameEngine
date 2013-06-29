@@ -17,8 +17,7 @@ public class Matrix4f
 				else matrix[i][j] = 0;
 		
 		return this;
-	}
-	
+	}	
 	public Matrix4f InitTranslation(float x, float y, float z)
 	{
 		matrix[0][0] = 1;	matrix[0][1] = 0;	matrix[0][2] = 0;	matrix[0][3] = x;
@@ -57,7 +56,16 @@ public class Matrix4f
 		
 		return this;
 	}
-	
+	public Matrix4f InitScale(float x, float y, float z)
+	{
+		matrix[0][0] = x;	matrix[0][1] = 0;	matrix[0][2] = 0;	matrix[0][3] = 0;
+		matrix[1][0] = 0;	matrix[1][1] = y;	matrix[1][2] = 0;	matrix[1][3] = 0;
+		matrix[2][0] = 0;	matrix[2][1] = 0;	matrix[2][2] = z;	matrix[2][3] = 0;
+		matrix[3][0] = 0;	matrix[3][1] = 0;	matrix[3][2] = 0;	matrix[3][3] = 1;
+		
+		return this;
+	}
+
 	public Matrix4f Mul(Matrix4f m)
 	{
 		Matrix4f res = new Matrix4f();
