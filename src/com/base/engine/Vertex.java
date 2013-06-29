@@ -20,4 +20,9 @@ public class Vertex
 	{
 		this.position = position;
 	}
+	
+	public String toString()
+	{
+		return position.toString();
+	}
 }
