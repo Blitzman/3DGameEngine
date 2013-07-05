@@ -10,7 +10,7 @@ public class Game
 	
 	public Game()
 	{
-		mesh = ResourceLoader.LoadMesh("cube.obj");
+		mesh = ResourceLoader.LoadMesh("pene.obj");
 		shader = new Shader();
 		
 //		Vertex[] vertices = new Vertex[] { 	new Vertex(new Vector3f(-1, -1, 0)),
@@ -26,9 +26,10 @@ public class Game
 //		mesh.AddVertices(vertices, indices);
 		
 		transform = new Transformation();
+		transform.SetProjection(70.0f, Window.GetWidth(), Window.GetHeight(), 0.1f, 1000.0f);
 		
-		shader.AddVertexShader(ResourceLoader.LoadShader("basicVertex.vs"));
-		shader.AddFragmentShader(ResourceLoader.LoadShader("basicFragment.fs"));
+		shader.AddVertexShader(ResourceLoader.LoadShader("basicVertex.glsl"));
+		shader.AddFragmentShader(ResourceLoader.LoadShader("basicFragment.glsl"));
 		shader.Compile();
 		
 		shader.AddUniform("transform");
@@ -53,15 +54,15 @@ public class Game
 	{
 		temp += Time.GetDelta();
 		
-		transform.SetTranslation((float)Math.sin(temp), 0.0f, 0.0f);
-		transform.SetRotation(0, (float)Math.sin(temp) * 180.0f, 0);
-		transform.SetScale(0.7f * (float)Math.sin(temp), 0.7f * (float)Math.sin(temp), 0.7f * (float)Math.sin(temp));
+		transform.SetTranslation(0.0f, 0.0f, 5.0f);
+		transform.SetRotation((float)Math.sin(temp) * 180.0f, (float)Math.sin(temp) * 180.0f, 0.0f);
+		//transform.SetScale(0.7f * (float)Math.sin(temp), 0.7f * (float)Math.sin(temp), 0.7f * (float)Math.sin(temp));
 	}
 	
 	public void Render()
 	{
 		shader.Bind();
-		shader.SetUniform("transform", transform.GetTransformation());
+		shader.SetUniform("transform", transform.GetProjectedTransformation());
 		mesh.Draw();
 	}
 }

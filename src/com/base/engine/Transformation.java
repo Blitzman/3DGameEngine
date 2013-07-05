@@ -2,6 +2,12 @@ package com.base.engine;
 
 public class Transformation
 {
+	private static float zNear;
+	private static float zFar;
+	private static float width;
+	private static float height;
+	private static float fov;
+	
 	private Vector3f translation;
 	private Vector3f rotation;
 	private Vector3f scale;
@@ -20,14 +26,21 @@ public class Transformation
 																	translation.GetZ());
 		
 		Matrix4f rotationMatrix = new Matrix4f().InitRotation(rotation.GetX(),
-																rotation.GetY(),
-																rotation.GetZ());
+															  rotation.GetY(),
+															  rotation.GetZ());
 		
 		Matrix4f scaleMatrix = new Matrix4f().InitScale(scale.GetX(),
 														scale.GetY(),
 														scale.GetZ());
 		
 		return translationMatrix.Mul(rotationMatrix.Mul(scaleMatrix));
+	}
+	public Matrix4f GetProjectedTransformation()
+	{
+		Matrix4f transformationMatrix = GetTransformation();
+		Matrix4f projectionMatrix = new Matrix4f().InitProjection(fov, width, height, zNear, zFar);
+		
+		return projectionMatrix.Mul(transformationMatrix);
 	}
 	
 	public Vector3f GetTranslation()
@@ -43,6 +56,14 @@ public class Transformation
 		return scale;
 	}
 		
+	public void SetProjection(float fov, float width, float height, float zNear, float zFar)
+	{
+		Transformation.fov = fov;
+		Transformation.width = width;
+		Transformation.height = height;
+		Transformation.zNear = zNear;
+		Transformation.zFar = zFar;
+	}
 	public void SetTranslation(Vector3f translation)
 	{
 		this.translation = translation;
