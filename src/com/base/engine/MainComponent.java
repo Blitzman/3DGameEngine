@@ -2,8 +2,8 @@ package com.base.engine;
 
 public class MainComponent
 {
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 720;
 	public static final String TITLE = "3DGameEngine";
 	public static final double FRAME_CAP = 500.0;
 	

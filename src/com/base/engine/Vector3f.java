@@ -33,13 +33,22 @@ public class Vector3f
 		
 		return this;
 	}
-	public Vector2f Rotate(float angle)
+	public Vector3f Rotate(float angle, Vector3f axis)
 	{
-		float rad = (float)Math.toRadians(angle);
-		float cos = (float)Math.cos(rad);
-		float sin = (float)Math.sin(rad);
+		float sinHalfAngle = (float)Math.sin(Math.toRadians(angle / 2));
+		float cosHalfAngle = (float)Math.cos(Math.toRadians(angle / 2));
 		
-		return new Vector2f(x*cos - y*sin, x*sin + y*cos);
+		float rX = axis.GetX() * sinHalfAngle;
+		float rY = axis.GetY() * sinHalfAngle;
+		float rZ = axis.GetZ() * sinHalfAngle;
+		float rW = cosHalfAngle;
+		
+		Quaternion rotation = new Quaternion(rX, rY, rZ, rW);
+		Quaternion conjugate = rotation.Conjugate();
+		
+		Quaternion w = rotation.Mul(this).Mul(conjugate);
+		
+		return new Vector3f(w.GetX(), w.GetY(), w.GetZ());
 	}
 	
 	public float Dot(Vector3f v)
@@ -48,16 +57,16 @@ public class Vector3f
 	}
 	public Vector3f Cross(Vector3f v)
 	{
-		float resX = y * v.z - z * v.y;
-		float resY = z * v.x - x * v.z;
-		float resZ = x * v.y - y * v.x;
+		float resX = y * v.GetZ() - z * v.GetY();
+		float resY = z * v.GetX() - x * v.GetZ();
+		float resZ = x * v.GetY() - y * v.GetX();
 		
 		return new Vector3f(resX, resY, resZ);
 	}
 	
 	public Vector3f Add(Vector3f v)
 	{
-		return new Vector3f(x + v.x, y + v.y, z - v.z);
+		return new Vector3f(x + v.x, y + v.y, z + v.z);
 	}
 	public Vector3f Add(float a)
 	{

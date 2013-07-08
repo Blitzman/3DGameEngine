@@ -78,6 +78,24 @@ public class Matrix4f
 		
 		return this;
 	}
+	public Matrix4f InitCamera(Vector3f forward, Vector3f up)
+	{
+		Vector3f f = forward;
+		f.Normalize();
+		
+		Vector3f r = up;
+		r.Normalize();
+		r = r.Cross(f);
+		
+		Vector3f u = f.Cross(r);
+		
+		matrix[0][0] = r.GetX();	matrix[0][1] = r.GetY();	matrix[0][2] = r.GetZ();	matrix[0][3] = 0;
+		matrix[1][0] = u.GetX();	matrix[1][1] = u.GetY();	matrix[1][2] = u.GetZ();	matrix[1][3] = 0;
+		matrix[2][0] = f.GetX();	matrix[2][1] = f.GetY();	matrix[2][2] = f.GetZ();	matrix[2][3] = 0;
+		matrix[3][0] = 0;			matrix[3][1] = 0;			matrix[3][2] = 0;			matrix[3][3] = 1;
+		
+		return this;			
+	}
 	
 	public Matrix4f Mul(Matrix4f m)
 	{

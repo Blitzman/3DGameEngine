@@ -1,17 +1,17 @@
 package com.base.engine;
 
-import org.lwjgl.input.Keyboard;
-
 public class Game
 {
 	private Mesh mesh;
 	private Shader shader;
 	private Transformation transform;
+	private Camera camera;
 	
 	public Game()
 	{
-		mesh = ResourceLoader.LoadMesh("pene.obj");
+		mesh = ResourceLoader.LoadMesh("cube.obj");
 		shader = new Shader();
+		camera = new Camera();
 		
 //		Vertex[] vertices = new Vertex[] { 	new Vertex(new Vector3f(-1, -1, 0)),
 //											new Vertex(new Vector3f(0, 1, 0)), 
@@ -27,6 +27,7 @@ public class Game
 		
 		transform = new Transformation();
 		transform.SetProjection(70.0f, Window.GetWidth(), Window.GetHeight(), 0.1f, 1000.0f);
+		transform.SetCamera(camera);
 		
 		shader.AddVertexShader(ResourceLoader.LoadShader("basicVertex.glsl"));
 		shader.AddFragmentShader(ResourceLoader.LoadShader("basicFragment.glsl"));
@@ -37,15 +38,7 @@ public class Game
 	
 	public void Input()
 	{
-		if (Input.GetKeyDown(Keyboard.KEY_UP))
-			System.out.println("UP Pressed");
-		if (Input.GetKeyUp(Keyboard.KEY_UP))
-			System.out.println("UP is Up");
-		
-		if (Input.GetMouseDown(0))
-			System.out.println("Click pressed at " + Input.GetMousePosition().toString());
-		if (Input.GetMouseUp(0))
-			System.out.println("Click released at " + Input.GetMousePosition().toString());
+		camera.input();
 	}
 	
 	float temp = 0.0f;
@@ -55,7 +48,7 @@ public class Game
 		temp += Time.GetDelta();
 		
 		transform.SetTranslation(0.0f, 0.0f, 5.0f);
-		transform.SetRotation((float)Math.sin(temp) * 180.0f, (float)Math.sin(temp) * 180.0f, 0.0f);
+		//transform.SetRotation((float)Math.sin(temp) * 180.0f, (float)Math.sin(temp) * 180.0f, 0.0f);
 		//transform.SetScale(0.7f * (float)Math.sin(temp), 0.7f * (float)Math.sin(temp), 0.7f * (float)Math.sin(temp));
 	}
 	

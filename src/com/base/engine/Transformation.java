@@ -2,6 +2,8 @@ package com.base.engine;
 
 public class Transformation
 {
+	private static Camera camera;
+	
 	private static float zNear;
 	private static float zFar;
 	private static float width;
@@ -39,8 +41,12 @@ public class Transformation
 	{
 		Matrix4f transformationMatrix = GetTransformation();
 		Matrix4f projectionMatrix = new Matrix4f().InitProjection(fov, width, height, zNear, zFar);
+		Matrix4f cameraRotationMatrix = new Matrix4f().InitCamera(camera.getForward(), camera.getUp());
+		Matrix4f cameraTranslationMatrix = new Matrix4f().InitTranslation(-camera.getPosition().GetX(),
+																		  -camera.getPosition().GetY(),
+																		  -camera.getPosition().GetZ());
 		
-		return projectionMatrix.Mul(transformationMatrix);
+		return projectionMatrix.Mul(cameraRotationMatrix.Mul(cameraTranslationMatrix.Mul(transformationMatrix)));
 	}
 	
 	public Vector3f GetTranslation()
@@ -55,7 +61,11 @@ public class Transformation
 	{
 		return scale;
 	}
-		
+	public Camera GetCamera()
+	{
+		return camera;
+	}
+	
 	public void SetProjection(float fov, float width, float height, float zNear, float zFar)
 	{
 		Transformation.fov = fov;
@@ -93,6 +103,10 @@ public class Transformation
 		scale.SetX(x);
 		scale.SetY(y);
 		scale.SetZ(z);
+	}
+	public void SetCamera(Camera camera)
+	{
+		Transformation.camera = camera;
 	}
 	
 	public String toString()

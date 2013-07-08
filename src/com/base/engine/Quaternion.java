@@ -37,19 +37,19 @@ public class Quaternion
 
 	public Quaternion Mul(Quaternion q)
 	{
-		float resX = w * q.w - x * q.x - y * q.y - z * q.z;
-		float resY = x * q.w + w * q.x + y * q.z - z * q.y; 
-		float resZ = y * q.w + w * q.y + z * q.x - x * q.z;
-		float resW = z * q.w + w * q.z + x * q.y - y * q.x;
+		float resW = w * q.GetW() - x * q.GetX() - y * q.GetY() - z * q.GetZ();
+		float resX = x * q.GetW() + w * q.GetX() + y * q.GetZ() - z * q.GetY(); 
+		float resY = y * q.GetW() + w * q.GetY() + z * q.GetX() - x * q.GetZ();
+		float resZ = z * q.GetW() + w * q.GetZ() + x * q.GetY() - y * q.GetX();
 		
 		return new Quaternion(resX, resY, resZ, resW);
 	}
 	public Quaternion Mul(Vector3f v)
 	{
-		float resX = -x * v.GetX() - y * v.GetY() - z * v.GetZ();
-		float resY = w * v.GetX() + y * v.GetZ() - z * v.GetY();
-		float resZ = w * v.GetY() + z * v.GetX() - x * v.GetZ();
-		float resW = w * v.GetZ() + x * v.GetY() - y * v.GetX();
+		float resW = -x * v.GetX() - y * v.GetY() - z * v.GetZ();
+		float resX = w * v.GetX() + y * v.GetZ() - z * v.GetY();
+		float resY = w * v.GetY() + z * v.GetX() - x * v.GetZ();
+		float resZ = w * v.GetZ() + x * v.GetY() - y * v.GetX();
 		
 		return new Quaternion(resX, resY, resZ, resW);
 	}
