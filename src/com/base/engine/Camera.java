@@ -62,6 +62,11 @@ public class Camera
 			move(getForward(), -movementAmount);
 		if (Input.GetKey(Keyboard.KEY_D))
 			move(getRight(), movementAmount);
+		if (Input.GetKey(Keyboard.KEY_SPACE))
+			move(getUp(), movementAmount);
+		if (Input.GetKey(Keyboard.KEY_LCONTROL))
+			move(getUp(), -movementAmount);
+			
 		
 		if (Input.GetKey(Keyboard.KEY_UP))
 			rotateX(-rotationAmount);
